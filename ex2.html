@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    input[type="text"],
+    input[type="email"],
+    .rr,
+    input[type="tel"],
+    input[type="password"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    input[type="submit"]:hover,
+    input[type="reset"]:hover {
+      background-color: #0056b3;
+    }
+
+    #container {
+      flex-wrap: wrap;
+      gap: 10px; 
+      width: 100%;
+      max-width: 600px; 
+      margin: 0 auto;
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: large;
+      width: calc(10% - 10px); 
+      height: 50px;
+      background-color: #f0f0f0;
+      border: 1px solid #999;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+
+
+    .rrr{
+        width: 30px;
+    }
+
+   
+    </style>
+</head>
+<body>
+
+
+    
+    <div class="containerr" style="display: flex; justify-content: center; margin-top: 50px;">
+       <form onsubmit="submitt(event)" action="" style="width: 50%;display: flex; flex-direction: column;">
+        <h1>Gestionnaire taches hebdomadaire</h1>
+        <h3 id="horloge">il est actuellement</h3>
+
+        <label for="">Heure :</label>
+        <input class="rr" required type="number" min="0" max="23" id="heure" >
+
+        <label for="">minute :</label>
+        <input class="rr"  required type="number"  min="0" max="59" id="minute">
+
+        <label for="">Note :</label>
+        <input required type="text"  id="note">
+
+        <input type="submit" value="ajouter une tache">
+
+       </form>
+
+      
+
+    </div>
+
+    <div id="container">
+       
+    </div>
+
+
+    
+
+
+
+</body>
+
+<script>
+
+
+    let arr = {};
+
+
+
+
+
+
+    
+
+    
+    let a = 0;
+
+
+
+    const ajouter = () => {
+        let heure = parseInt(document.getElementById("heure").value)
+        let minute = parseInt(document.getElementById("minute").value)
+
+        let note = document.getElementById("note").value
+        a += 1;
+        document.getElementById("container").innerHTML += ` 
+        <li id="${a}">
+            <input type="checkbox" name="" id="">
+            <input class="rrr" type="number" value="${heure}">
+            <input class="rrr" type="number" value="${minute}">
+            <div style="display:inline-flex; width: 200px; overflow-x: hidden; border: black solid 1px;"> oiad</div>
+            <button onclick="update(${a})">-</button>
+        </li>`
+        arr[`${a}`] = [heure,minute,second,note]
+    }
+
+
+    const update = (index) => {
+        document.getElementById(`${index}`).style.display = "none"
+        delete arr[index]
+    }
+
+    
+    const update_time = () =>{
+
+        let now = new Date().getTime();
+        let hours = Math.floor((now % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((now % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((now % (1000 * 60)) / 1000);
+        document.getElementById("horloge").innerText = "il est actuellement :  " + hours + ":" + minutes + ":" + seconds
+
+    }
+    update_time()
+
+    let handle = setInterval(update_time,1000)
+
+    const oooo = () => {
+
+        for (let key in arr) {
+            let now = new Date().getTime();
+            let hours = Math.floor((now % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((now % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((now % (1000 * 60)) / 1000);
+
+            
+            
+            
+            if (arr[key][0] == hours && arr[key][1] == minutes){
+                alert("Commencer la revision")
+            }
+        }
+
+    }
+
+    let handle2 =  setInterval(oooo,1000)
+
+
+
+    const submitt = (event) => {
+       
+
+        event.preventDefault(); 
+        ajouter();
+       
+
+    }
+
+</script>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulaire d'enregistrement des notes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    form {
+      width: 80%;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    select {
+      width: calc(100% - 12px);
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .ready,
+    input[type="reset"] {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    
+
+    .notready{
+        padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      background-color: grey;
+      color: #fff;
+      cursor:default;
+
+    }
+
+
+
+    .ready:hover,
+    input[type="reset"]:hover {
+      background-color: #0056b3;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007bff;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Formulaire </h1>
+  <form id="form" onsubmit="" onchange="ooo()">
+    <div>
+      <label for="Identifiant">Identifiant:</label>
+      <input type="text" id="Identifiant" name="Identifiant" required>
+    </div>
+    <div>
+      <label for="Prenom">Prenom:</label>
+      <input type="text" id="Prenom" name="Prenom" required>
+    </div>
+
+    <div>
+      <label for="Nom">Nom:</label>
+      <input type="text" id="Nom" name="Nom" required>
+    </div>
+
+    <div>
+        <label for="age">age:</label>
+        <input type="number" min="0"   id="age" name="age" required>
+      </div>
+
+    <div>
+        <label for="mot_de_passe">mot de passe : </label>
+        <input onchange="score()" required type="password" name="mot_de_passe" id="mot_de_passe"> fort:<span id="strengh"></span>
+    </div>
+
+    <div>
+        <label for="Resaisir_le_mot_de_passe">Resaisir le mot de passe : </label>
+        <input required type="password" name="Resaisir_le_mot_de_passe" id="Resaisir_le_mot_de_passe">
+    </div>
+
+    <div>
+        <input required type="checkbox" name="accepte" id="accepte">J' accepte les CGU
+        <label for="accepte"></label>
+
+    </div>
+
+
+    
+    <div>
+      <input class="notready" type="submit" value="envoyer" disabled id="submit">
+      <input type="reset" value="Réinitialiser">
+    </div>
+  </form>
+
+
+  <script>
+
+
+    const check_iden = (iden) => {
+        const a = "abcdefghijklmnopqrstuvwxyz"
+        let low = iden.toLowerCase()
+
+        for(let i=0;i<iden.length;i++){
+            if(!a.includes(low[i])){
+                return false
+            }
+
+        }
+        return true;
+
+    }
+
+    const non_empty = (iii) =>{
+        const a = "abcdefghijklmnopqrstuvwxyz"
+        const b = "0123456789"
+
+        let low = iii.toLowerCase()
+
+        for(let i=0;i<iii.length;i++){
+            if(!a.includes(low[i]) && !b.includes(low[i])){
+                return true
+            }
+
+        }
+        return false;
+
+    }
+
+    const chi = (iii) => {
+        const a = "0123456789"
+        
+        for(let i=0;i<iii.length;i++){
+            if(a.includes(iii[i])){
+                return true
+            }
+
+        }
+        return false;
+
+
+    }
+
+
+
+    const maj = (iii) =>{
+        const a = "abcdefghijklmnopqrstuvwxyz".toUpperCase()
+        
+        for(let i=0;i<iii.length;i++){
+            if(a.includes(iii[i])){
+                return true
+            }
+
+        }
+        return false;
+
+    }
+
+    const miis = (iii) =>{
+        const a = "abcdefghijklmnopqrstuvwxyz"
+        
+        for(let i=0;i<iii.length;i++){
+            if(a.includes(iii[i])){
+                return true
+            }
+
+        }
+        return false;
+
+    }
+
+
+    function validateForm() {
+
+      const identifiant = document.getElementById('Identifiant').value;
+      const prenom = document.getElementById('Prenom').value;
+      const nom = document.getElementById('Nom').value;
+      const age = document.getElementById('age').value;
+      const password = document.getElementById('mot_de_passe').value;
+      const repassword = document.getElementById('Resaisir_le_mot_de_passe').value;
+      const checkk = document.getElementById('accepte'); 
+     
+        if(parseFloat(age)>= 18 && check_iden(identifiant) && identifiant.length >=12 && password.length >= 8 && password === repassword && checkk.checked ){
+
+            return true;
+        }
+        return false;
+      
+    }
+  
+    
+
+    let but = document.getElementById("submit")
+
+    const ooo =  function(){
+        if(validateForm()){
+            but.className = "ready";
+            but.disabled = false;
+        }
+        else{
+            but.style.backgroundColor = "notready";
+            but.disabled = true;
+        }
+    
+    }
+
+
+    const score = () => {
+        const iii = document.getElementById('mot_de_passe').value;
+        const a = iii.length >=8;
+        const b = maj(iii);
+        const c = miis(iii);
+        const d = chi(iii);
+        const e = non_empty(iii);
+
+        const i = parseInt(20*([a,b,c,d,e].filter(a=>a).length))
+
+        if (i >= 50){
+            document.getElementById("strengh").innerText = "   % " + i;
+            document.getElementById("strengh").style.color = "green";
+        }
+        else{
+            document.getElementById("strengh").innerText = "   % " + i;
+            document.getElementById("strengh").style.color = "red";
+
+        }
+
+    }
+
+   score();
+
+  </script>
+
+
+</body>
+</html>
